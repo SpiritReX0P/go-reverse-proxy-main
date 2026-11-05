@@ -1,0 +1,8 @@
+server:
+  listen_address: ":8080"
+
+routes:
+  api.proxy:
+    upstreams:
+      - "http://payment-svc-stable:8001" 
+      - "http://payment-svc-canary:8001" 

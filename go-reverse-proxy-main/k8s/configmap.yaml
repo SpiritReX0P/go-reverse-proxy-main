@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: proxy-config
+  namespace: default
+data:
+  config.yaml: |
+    server:
+      listen_address: ":8080"
+    routes:
+      api.proxy:
+        upstreams:
+          - "http://payment-svc-stable:8001"
+          - "http://payment-svc-canary:8001"

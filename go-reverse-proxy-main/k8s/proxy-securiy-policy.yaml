@@ -1,0 +1,24 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: secure-proxy-perimeter
+  namespace: default
+spec:
+  endpointSelector:
+    matchLabels:
+      app: go-reverse-proxy
+  ingress:
+  - toPorts:
+    - ports:
+      - port: "8080"
+        protocol: TCP
+
+  - fromEntities:
+    - host         
+    fromEndpoints:
+    - matchLabels:
+        app: prometheus 
+    toPorts:
+    - ports:
+      - port: "9090"
+        protocol: TCP
